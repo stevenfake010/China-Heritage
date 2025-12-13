@@ -65,9 +65,6 @@ const ChinaMap: React.FC<ChinaMapProps> = ({ visitedSiteIds, onSiteClick }) => {
     const height = 600;
     
     // Manual projection configuration for China.
-    // This is tuned for the standard Aliyun "full" map which includes the South China Sea islands.
-    // If a fallback map is loaded that lacks these islands, the map might appear slightly off-center 
-    // or smaller/larger, but usually still visible.
     const projection = d3.geoMercator()
       .center([104.5, 36.5]) 
       .scale(750) 
@@ -82,7 +79,7 @@ const ChinaMap: React.FC<ChinaMapProps> = ({ visitedSiteIds, onSiteClick }) => {
     return (
       <div className="w-full h-[600px] flex flex-col items-center justify-center bg-stone-200 rounded-xl gap-3">
         <Loader2 className="animate-spin text-stone-500 w-10 h-10" />
-        <p className="text-stone-500 text-sm font-medium">Loading Map Data...</p>
+        <p className="text-stone-500 text-sm font-medium">正在加载地图数据...</p>
       </div>
     );
   }
@@ -94,16 +91,16 @@ const ChinaMap: React.FC<ChinaMapProps> = ({ visitedSiteIds, onSiteClick }) => {
             <AlertTriangle size={32} className="text-amber-500" />
         </div>
         <div>
-            <h3 className="font-bold text-stone-700 mb-1">Map Unavailable</h3>
+            <h3 className="font-bold text-stone-700 mb-1">地图加载失败</h3>
             <p className="text-sm max-w-md mx-auto">
-                We couldn't load the map data from our content providers. This might be due to network restrictions or connectivity issues.
+                无法从数据源加载地图数据，请检查网络连接。
             </p>
         </div>
         <button 
           onClick={fetchMapData}
           className="flex items-center gap-2 px-5 py-2.5 bg-stone-800 text-white rounded-lg shadow-sm text-sm font-medium hover:bg-stone-900 transition-colors mt-2"
         >
-          <RefreshCw size={16} /> Try Again
+          <RefreshCw size={16} /> 重试
         </button>
       </div>
     );
@@ -112,8 +109,8 @@ const ChinaMap: React.FC<ChinaMapProps> = ({ visitedSiteIds, onSiteClick }) => {
   return (
     <div className="relative w-full overflow-hidden bg-gradient-to-br from-stone-100 to-stone-200 rounded-2xl shadow-inner border border-stone-200">
       <div className="absolute top-4 left-4 z-10 bg-white/80 backdrop-blur px-4 py-2 rounded-lg shadow-sm pointer-events-none">
-        <h3 className="text-sm font-semibold text-stone-800">Map Explorer</h3>
-        <p className="text-xs text-stone-600">Hover provinces, click flags to visit.</p>
+        <h3 className="text-sm font-semibold text-stone-800">中国遗产地图</h3>
+        <p className="text-xs text-stone-600">探索省份，点击旗帜打卡</p>
       </div>
 
       <svg viewBox="0 0 800 600" className="w-full h-full select-none">
@@ -187,18 +184,19 @@ const ChinaMap: React.FC<ChinaMapProps> = ({ visitedSiteIds, onSiteClick }) => {
                      <rect
                       x={-4}
                       y={-18}
-                      width={Math.min(200, Math.max(100, site.name.length * 7))}
-                      height={24}
+                      width={Math.min(200, Math.max(120, site.name.length * 14))} // Adjusted width for Chinese chars
+                      height={26}
                       rx={4}
-                      fill="rgba(28, 25, 23, 0.9)" 
+                      fill="rgba(28, 25, 23, 0.95)" 
                     />
                     <text
                       fill="white"
-                      fontSize={11}
+                      fontSize={12}
                       fontWeight="bold"
-                      dy={-2}
+                      dy={-1}
+                      fontFamily="'Noto Serif SC', serif"
                     >
-                      {site.name.length > 25 ? site.name.substring(0, 24) + '...' : site.name}
+                      {site.name.length > 15 ? site.name.substring(0, 14) + '...' : site.name}
                     </text>
                   </g>
                 )}

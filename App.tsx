@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import ChinaMap from './components/ChinaMap';
 import SiteCard from './components/SiteCard';
 import { HERITAGE_SITES } from './constants';
-import { Search, Trophy, Map as MapIcon, Grid } from 'lucide-react';
+import { Search, Trophy, Map as MapIcon, Grid, Flag } from 'lucide-react';
 
 const App: React.FC = () => {
   // --- State ---
@@ -38,8 +38,9 @@ const App: React.FC = () => {
   // --- Derived Data ---
   const filteredSites = useMemo(() => {
     return HERITAGE_SITES.filter((site) => {
-      const matchesSearch = site.name.toLowerCase().includes(search.toLowerCase()) || 
-                            site.province.toLowerCase().includes(search.toLowerCase());
+      const matchesSearch = site.name.includes(search) || 
+                            site.province.includes(search) ||
+                            site.description.includes(search);
       const isVisited = visited.has(site.id);
       
       if (filter === 'visited') return matchesSearch && isVisited;
@@ -55,20 +56,20 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-stone-100 text-stone-900 pb-12">
+    <div className="min-h-screen bg-stone-100 text-stone-900 pb-12 font-sans">
       {/* --- Header --- */}
       <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-stone-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="bg-red-700 text-white p-2 rounded-lg shadow-sm">
+            <div className="bg-red-800 text-white p-2 rounded-lg shadow-sm">
                 <Trophy size={20} />
             </div>
             <div>
                 <h1 className="text-xl font-serif font-bold tracking-tight text-stone-900">
-                Heritage Tracker
+                世界遗产足迹
                 </h1>
                 <p className="text-xs text-stone-500 uppercase tracking-widest font-semibold">
-                    China Collection
+                    中国名录 • 共{stats.total}项
                 </p>
             </div>
           </div>
@@ -76,9 +77,9 @@ const App: React.FC = () => {
           <div className="flex items-center gap-6">
             <div className="hidden md:flex flex-col items-end">
                 <div className="text-sm font-medium text-stone-600">
-                    Progress
+                    打卡进度
                 </div>
-                <div className="text-lg font-bold font-serif text-emerald-600">
+                <div className="text-lg font-bold font-serif text-emerald-700">
                     {stats.visited} <span className="text-stone-400 text-base font-sans font-normal">/ {stats.total}</span>
                 </div>
             </div>
@@ -109,7 +110,7 @@ const App: React.FC = () => {
         </section>
 
         {/* --- Controls Section --- */}
-        <section className="flex flex-col md:flex-row gap-4 items-center justify-between sticky top-24 z-30 bg-stone-100/90 py-4 backdrop-blur-sm -mx-4 px-4 md:mx-0 md:px-0">
+        <section className="flex flex-col md:flex-row gap-4 items-center justify-between sticky top-24 z-30 bg-stone-100/95 py-4 backdrop-blur-sm -mx-4 px-4 md:mx-0 md:px-0">
             {/* View Toggle (Mobile) */}
             <div className="flex md:hidden bg-white rounded-lg p-1 shadow-sm border border-stone-200">
                 <button 
@@ -131,8 +132,8 @@ const App: React.FC = () => {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-stone-400" size={18} />
                 <input 
                     type="text" 
-                    placeholder="Search site or province..." 
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-200 focus:ring-2 focus:ring-red-100 focus:border-red-400 outline-none transition-all shadow-sm"
+                    placeholder="搜索遗产地或省份..." 
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-200 focus:ring-2 focus:ring-red-100 focus:border-red-400 outline-none transition-all shadow-sm bg-white"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
@@ -140,20 +141,27 @@ const App: React.FC = () => {
 
             {/* Filter Tabs */}
             <div className="flex bg-white rounded-xl p-1 shadow-sm border border-stone-200 overflow-x-auto w-full md:w-auto">
-                {(['all', 'visited', 'unvisited'] as const).map((f) => (
-                    <button
-                        key={f}
-                        onClick={() => setFilter(f)}
-                        className={`
-                            px-4 py-1.5 rounded-lg text-sm font-medium transition-all capitalize whitespace-nowrap flex-1 md:flex-none
-                            ${filter === f 
-                                ? 'bg-stone-800 text-white shadow-md' 
-                                : 'text-stone-500 hover:bg-stone-50'}
-                        `}
-                    >
-                        {f}
-                    </button>
-                ))}
+                <button
+                    onClick={() => setFilter('all')}
+                    className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all flex-1 md:flex-none
+                        ${filter === 'all' ? 'bg-stone-800 text-white shadow-md' : 'text-stone-500 hover:bg-stone-50'}`}
+                >
+                    全部
+                </button>
+                <button
+                    onClick={() => setFilter('visited')}
+                    className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all flex-1 md:flex-none
+                        ${filter === 'visited' ? 'bg-emerald-600 text-white shadow-md' : 'text-stone-500 hover:bg-stone-50'}`}
+                >
+                    已打卡
+                </button>
+                <button
+                    onClick={() => setFilter('unvisited')}
+                    className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all flex-1 md:flex-none
+                        ${filter === 'unvisited' ? 'bg-amber-600 text-white shadow-md' : 'text-stone-500 hover:bg-stone-50'}`}
+                >
+                    未去过
+                </button>
             </div>
         </section>
 
@@ -169,8 +177,9 @@ const App: React.FC = () => {
                     />
                 ))
             ) : (
-                <div className="col-span-full py-12 text-center text-stone-400">
-                    <p className="text-lg">No heritage sites found.</p>
+                <div className="col-span-full py-12 text-center text-stone-400 flex flex-col items-center">
+                    <Flag size={48} className="mb-4 opacity-20" />
+                    <p className="text-lg font-serif">未找到相关遗产地</p>
                 </div>
             )}
         </section>

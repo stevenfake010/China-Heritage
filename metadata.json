@@ -1,5 +1,5 @@
 {
-  "name": "China Heritage Tracker",
-  "description": "A visual interactive map and tracker for China's UNESCO World Heritage Sites, featuring AI-powered site insights.",
+  "name": "中国世界遗产足迹",
+  "description": "中国联合国教科文组织世界遗产名录的可视化互动地图与打卡记录工具。",
   "requestFramePermissions": []
 }
