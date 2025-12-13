@@ -1,0 +1,196 @@
+import React, { useEffect, useState, useMemo } from 'react';
+import * as d3 from 'd3';
+import { GeoJSONData, HeritageSite } from '../types';
+import { HERITAGE_SITES } from '../constants';
+import { Loader2, RefreshCw, MapPin } from 'lucide-react';
+
+interface ChinaMapProps {
+  visitedSiteIds: Set<string>;
+  onSiteClick: (siteId: string) => void;
+}
+
+const ChinaMap: React.FC<ChinaMapProps> = ({ visitedSiteIds, onSiteClick }) => {
+  const [geoData, setGeoData] = useState<GeoJSONData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [hoveredProvince, setHoveredProvince] = useState<string | null>(null);
+  const [hoveredSite, setHoveredSite] = useState<HeritageSite | null>(null);
+
+  const fetchMapData = () => {
+    setLoading(true);
+    setError(false);
+    // Use Aliyun DataV GeoJSON.
+    fetch('https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json')
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to load map data');
+        return res.json();
+      })
+      .then((data) => {
+        setGeoData(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Map data load error:", err);
+        setError(true);
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchMapData();
+  }, []);
+
+  const { pathGenerator, projection } = useMemo(() => {
+    if (!geoData) return { pathGenerator: null, projection: null };
+
+    const width = 800;
+    const height = 600;
+    
+    // Manual projection configuration for China to avoid issues with outlying islands 
+    // shrinking the mainland view when using auto-fit.
+    // Centered roughly on the geometric center of China.
+    const projection = d3.geoMercator()
+      .center([104.5, 36.5]) 
+      .scale(750) 
+      .translate([width / 2, height / 2]);
+
+    const pathGenerator = d3.geoPath().projection(projection);
+
+    return { pathGenerator, projection };
+  }, [geoData]);
+
+  if (loading) {
+    return (
+      <div className="w-full h-[600px] flex items-center justify-center bg-stone-200 rounded-xl">
+        <Loader2 className="animate-spin text-stone-500 w-10 h-10" />
+      </div>
+    );
+  }
+
+  if (error || !geoData || !pathGenerator || !projection) {
+    return (
+      <div className="w-full h-[600px] flex flex-col items-center justify-center bg-stone-200 rounded-xl text-stone-500 gap-4">
+        <MapPin size={48} className="text-stone-300" />
+        <p>Map data unavailable.</p>
+        <button 
+          onClick={fetchMapData}
+          className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow-sm text-sm font-medium hover:bg-stone-50 transition-colors"
+        >
+          <RefreshCw size={16} /> Retry
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative w-full overflow-hidden bg-gradient-to-br from-stone-100 to-stone-200 rounded-2xl shadow-inner border border-stone-200">
+      <div className="absolute top-4 left-4 z-10 bg-white/80 backdrop-blur px-4 py-2 rounded-lg shadow-sm pointer-events-none">
+        <h3 className="text-sm font-semibold text-stone-800">Map Explorer</h3>
+        <p className="text-xs text-stone-600">Hover provinces, click flags to visit.</p>
+      </div>
+
+      <svg viewBox="0 0 800 600" className="w-full h-full select-none">
+        <g>
+          {geoData.features && geoData.features.map((feature, i) => {
+            const provinceName = feature.properties.name; 
+            const isHovered = hoveredProvince === provinceName;
+            
+            return (
+              <path
+                key={`province-${i}`}
+                d={pathGenerator(feature) || ''}
+                fill={isHovered ? '#d6d3d1' : '#e5e7eb'} // stone-300 : gray-200
+                stroke="white"
+                strokeWidth={1}
+                className="transition-colors duration-200 ease-in-out cursor-pointer outline-none"
+                onMouseEnter={() => setHoveredProvince(provinceName)}
+                onMouseLeave={() => setHoveredProvince(null)}
+              />
+            );
+          })}
+        </g>
+
+        {/* Render Sites */}
+        <g>
+          {HERITAGE_SITES.map((site) => {
+            const projected = projection(site.coordinates);
+            if (!projected) return null;
+            const [x, y] = projected;
+            
+            const isVisited = visitedSiteIds.has(site.id);
+            const isHovered = hoveredSite?.id === site.id;
+
+            return (
+              <g
+                key={site.id}
+                transform={`translate(${x}, ${y})`}
+                className="cursor-pointer group"
+                onClick={() => onSiteClick(site.id)}
+                onMouseEnter={() => setHoveredSite(site)}
+                onMouseLeave={() => setHoveredSite(null)}
+              >
+                {/* Ping animation for unvisited sites to draw attention */}
+                {!isVisited && (
+                  <circle
+                    r={8}
+                    fill="#ca8a04" // yellow-600
+                    className="animate-ping opacity-40"
+                  />
+                )}
+                
+                {/* The Flag Stick */}
+                {isVisited && (
+                   <line x1={0} y1={0} x2={0} y2={-14} stroke="#44403c" strokeWidth={1.5} />
+                )}
+
+                {/* The Marker/Flag */}
+                {isVisited ? (
+                    // Flag for visited
+                    <g transform="translate(0, -14)"> 
+                         <path d="M0,0 L12,6 L0,12 Z" fill="#dc2626" /> {/* Red Flag */}
+                    </g>
+                ) : (
+                    // Dot for unvisited
+                    <circle r={4} fill="#ca8a04" stroke="white" strokeWidth={1.5} />
+                )}
+
+                {/* Tooltip on Hover */}
+                {isHovered && (
+                  <g transform="translate(14, -20)" className="pointer-events-none z-50">
+                     <rect
+                      x={-4}
+                      y={-18}
+                      width={Math.min(200, Math.max(100, site.name.length * 7))}
+                      height={24}
+                      rx={4}
+                      fill="rgba(28, 25, 23, 0.9)" 
+                    />
+                    <text
+                      fill="white"
+                      fontSize={11}
+                      fontWeight="bold"
+                      dy={-2}
+                    >
+                      {site.name.length > 25 ? site.name.substring(0, 24) + '...' : site.name}
+                    </text>
+                  </g>
+                )}
+              </g>
+            );
+          })}
+        </g>
+      </svg>
+      
+      {/* Bottom overlay for province name */}
+      {hoveredProvince && (
+        <div className="absolute bottom-4 right-4 pointer-events-none text-right">
+          <span className="text-4xl font-black text-stone-300 uppercase tracking-widest opacity-60 font-serif block drop-shadow-sm">
+            {hoveredProvince}
+          </span>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ChinaMap;
