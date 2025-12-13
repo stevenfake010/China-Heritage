@@ -2,12 +2,19 @@ import React, { useEffect, useState, useMemo } from 'react';
 import * as d3 from 'd3';
 import { GeoJSONData, HeritageSite } from '../types';
 import { HERITAGE_SITES } from '../constants';
-import { Loader2, RefreshCw, MapPin } from 'lucide-react';
+import { Loader2, RefreshCw, MapPin, AlertTriangle } from 'lucide-react';
 
 interface ChinaMapProps {
   visitedSiteIds: Set<string>;
   onSiteClick: (siteId: string) => void;
 }
+
+// Priority list of GeoJSON sources
+const MAP_DATA_URLS = [
+  'https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json', // Primary: Aliyun (Standard, detailed)
+  'https://cdn.jsdelivr.net/gh/yezongyang/china-geojson@master/china.json', // Fallback 1: JSDelivr (High availability)
+  'https://raw.githubusercontent.com/waylau/svg-china-map/master/china-map/china.json' // Fallback 2: GitHub Raw (Last resort)
+];
 
 const ChinaMap: React.FC<ChinaMapProps> = ({ visitedSiteIds, onSiteClick }) => {
   const [geoData, setGeoData] = useState<GeoJSONData | null>(null);
@@ -16,24 +23,35 @@ const ChinaMap: React.FC<ChinaMapProps> = ({ visitedSiteIds, onSiteClick }) => {
   const [hoveredProvince, setHoveredProvince] = useState<string | null>(null);
   const [hoveredSite, setHoveredSite] = useState<HeritageSite | null>(null);
 
-  const fetchMapData = () => {
+  const fetchMapData = async () => {
     setLoading(true);
     setError(false);
-    // Use Aliyun DataV GeoJSON.
-    fetch('https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json')
-      .then((res) => {
-        if (!res.ok) throw new Error('Failed to load map data');
-        return res.json();
-      })
-      .then((data) => {
+    
+    for (const url of MAP_DATA_URLS) {
+      try {
+        console.log(`Attempting to load map data from: ${url}`);
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`Status ${res.status}`);
+        const data = await res.json();
+        
+        // Basic validation to ensure it's GeoJSON
+        if (!data.features || !Array.isArray(data.features)) {
+          throw new Error("Invalid GeoJSON format");
+        }
+
         setGeoData(data);
         setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Map data load error:", err);
-        setError(true);
-        setLoading(false);
-      });
+        return; // Success, exit loop
+      } catch (err) {
+        console.warn(`Failed to load from ${url}:`, err);
+        // Continue to next URL
+      }
+    }
+
+    // If we get here, all URLs failed
+    console.error("All map data sources failed.");
+    setError(true);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -46,9 +64,10 @@ const ChinaMap: React.FC<ChinaMapProps> = ({ visitedSiteIds, onSiteClick }) => {
     const width = 800;
     const height = 600;
     
-    // Manual projection configuration for China to avoid issues with outlying islands 
-    // shrinking the mainland view when using auto-fit.
-    // Centered roughly on the geometric center of China.
+    // Manual projection configuration for China.
+    // This is tuned for the standard Aliyun "full" map which includes the South China Sea islands.
+    // If a fallback map is loaded that lacks these islands, the map might appear slightly off-center 
+    // or smaller/larger, but usually still visible.
     const projection = d3.geoMercator()
       .center([104.5, 36.5]) 
       .scale(750) 
@@ -61,22 +80,30 @@ const ChinaMap: React.FC<ChinaMapProps> = ({ visitedSiteIds, onSiteClick }) => {
 
   if (loading) {
     return (
-      <div className="w-full h-[600px] flex items-center justify-center bg-stone-200 rounded-xl">
+      <div className="w-full h-[600px] flex flex-col items-center justify-center bg-stone-200 rounded-xl gap-3">
         <Loader2 className="animate-spin text-stone-500 w-10 h-10" />
+        <p className="text-stone-500 text-sm font-medium">Loading Map Data...</p>
       </div>
     );
   }
 
   if (error || !geoData || !pathGenerator || !projection) {
     return (
-      <div className="w-full h-[600px] flex flex-col items-center justify-center bg-stone-200 rounded-xl text-stone-500 gap-4">
-        <MapPin size={48} className="text-stone-300" />
-        <p>Map data unavailable.</p>
+      <div className="w-full h-[600px] flex flex-col items-center justify-center bg-stone-200 rounded-xl text-stone-500 gap-4 p-8 text-center">
+        <div className="bg-white p-4 rounded-full shadow-sm">
+            <AlertTriangle size={32} className="text-amber-500" />
+        </div>
+        <div>
+            <h3 className="font-bold text-stone-700 mb-1">Map Unavailable</h3>
+            <p className="text-sm max-w-md mx-auto">
+                We couldn't load the map data from our content providers. This might be due to network restrictions or connectivity issues.
+            </p>
+        </div>
         <button 
           onClick={fetchMapData}
-          className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow-sm text-sm font-medium hover:bg-stone-50 transition-colors"
+          className="flex items-center gap-2 px-5 py-2.5 bg-stone-800 text-white rounded-lg shadow-sm text-sm font-medium hover:bg-stone-900 transition-colors mt-2"
         >
-          <RefreshCw size={16} /> Retry
+          <RefreshCw size={16} /> Try Again
         </button>
       </div>
     );
