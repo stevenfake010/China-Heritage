@@ -41,13 +41,13 @@ const StatisticsModal: React.FC<StatisticsModalProps> = ({ visited, onClose }) =
       }
     });
 
-    // Sort provinces by TOTAL quantity (desc), then by visited (desc)
+    // Sort provinces by TOTAL quantity (desc), then by visited count (desc)
     const sortedProvinces = Object.entries(provinceMap)
       .sort(([, a], [, b]) => {
-        if (b.total !== a.total) return b.total - a.total; // Sort by Quantity
-        return b.visited - a.visited;
+        if (b.total !== a.total) return b.total - a.total; // Primary: Sort by Quantity
+        return b.visited - a.visited; // Secondary: Sort by Visited
       });
-      // No slice() - showing ALL provinces
+      // Showing ALL provinces (no slice)
 
     return { categories, sortedProvinces };
   }, [visited]);
@@ -72,7 +72,7 @@ const StatisticsModal: React.FC<StatisticsModalProps> = ({ visited, onClose }) =
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/40 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-3xl max-h-[90vh] flex flex-col relative overflow-hidden border border-white/50">
+      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col relative overflow-hidden border border-white/50">
         
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-stone-100 bg-white/95 backdrop-blur z-20">
@@ -95,30 +95,33 @@ const StatisticsModal: React.FC<StatisticsModalProps> = ({ visited, onClose }) =
         {/* Scrollable Content */}
         <div className="p-6 overflow-y-auto space-y-6 bg-stone-50/30">
           
-          {/* Top Section: Compact 4 Panels Layout */}
+          {/* Top Section: Compact Summary */}
           <section className="space-y-3">
-             {/* 1. Global Progress Card (Full Width) */}
-            <div className="bg-stone-900 rounded-2xl p-5 text-white relative overflow-hidden shadow-sm group min-h-[110px] flex flex-col justify-center">
-                <Map className="absolute -bottom-8 -right-4 text-white opacity-5 w-32 h-32 group-hover:scale-105 transition-transform duration-700" />
-                <div className="absolute top-0 right-0 w-24 h-24 bg-white opacity-5 rounded-full blur-2xl -mr-6 -mt-6"></div>
+             {/* 1. Global Progress Card (Full Width, Dark Theme) */}
+            <div className="bg-[#1c1917] rounded-xl p-4 text-white relative overflow-hidden shadow-sm flex flex-col justify-center min-h-[100px]">
+                {/* Background effects */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-[0.03] rounded-full blur-3xl -mr-10 -mt-10"></div>
                 
-                <div className="relative z-10 flex items-end justify-between">
-                    <div>
-                        <div className="flex items-center gap-2 text-stone-400 text-[10px] font-bold uppercase tracking-wider mb-1">
-                            <Trophy size={12} /> 总体进度
-                        </div>
-                        <div className="flex items-baseline gap-3">
-                            <div className="text-4xl font-serif font-bold text-white">
-                                {totalPercentage}%
+                <div className="relative z-10 flex flex-col gap-3">
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <div className="flex items-center gap-1.5 text-stone-400 text-[10px] font-bold uppercase tracking-wider mb-0.5">
+                                <Trophy size={12} /> 总体进度
                             </div>
-                            <div className="text-stone-400 text-xs pb-1">
-                                已探索 <span className="text-white font-bold">{visited.size}</span> / {HERITAGE_SITES.length} 处遗产
+                            <div className="flex items-baseline gap-2">
+                                <div className="text-3xl font-serif font-bold text-white leading-none">
+                                    {totalPercentage}%
+                                </div>
+                                <div className="text-stone-500 text-xs">
+                                    已探索 <span className="text-stone-300 font-bold">{visited.size}</span> / {HERITAGE_SITES.length} 处遗产
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="relative z-10 w-full bg-white/10 h-1.5 rounded-full mt-4 overflow-hidden">
-                    <div className="bg-emerald-500 h-full rounded-full transition-all duration-1000" style={{ width: `${totalPercentage}%` }}></div>
+                    
+                    <div className="w-full bg-stone-800 h-1.5 rounded-full overflow-hidden">
+                        <div className="bg-emerald-500 h-full rounded-full transition-all duration-1000" style={{ width: `${totalPercentage}%` }}></div>
+                    </div>
                 </div>
             </div>
 
@@ -129,24 +132,26 @@ const StatisticsModal: React.FC<StatisticsModalProps> = ({ visited, onClose }) =
                     const percent = data.total > 0 ? Math.round((data.visited / data.total) * 100) : 0;
                     
                     return (
-                    <div key={cat} className="bg-white hover:bg-stone-50 transition-colors rounded-xl p-3 border border-stone-200/60 shadow-sm flex flex-col justify-between group">
-                        <div className="flex justify-between items-start mb-2">
-                            <div className="p-1.5 bg-stone-50 rounded-md">
-                                {getCategoryIcon(cat)}
+                    <div key={cat} className="bg-white hover:bg-white/80 transition-colors rounded-xl p-3 border border-stone-200/60 shadow-sm flex flex-col justify-center gap-2">
+                        <div className="flex justify-between items-center">
+                            <div className="flex items-center gap-1.5">
+                                <div className="p-1 bg-stone-50 rounded text-stone-600">
+                                    {getCategoryIcon(cat)}
+                                </div>
                             </div>
-                            <span className="text-lg font-bold text-stone-800">{percent}<span className="text-[10px] text-stone-400 font-medium ml-0.5">%</span></span>
+                            <span className="text-lg font-bold text-stone-800 leading-none">{percent}<span className="text-[10px] text-stone-400 font-medium ml-0.5">%</span></span>
                         </div>
                         
                         <div>
-                            <div className="text-xs font-bold text-stone-700 mb-1.5">{cat}</div>
+                            <div className="flex justify-between items-center mb-1.5">
+                                <span className="text-xs font-bold text-stone-600">{cat}</span>
+                                <span className="text-[10px] text-stone-400 font-mono">{data.visited}/{data.total}</span>
+                            </div>
                             <div className="h-1 w-full bg-stone-100 rounded-full overflow-hidden">
                                 <div 
                                     className={`h-full rounded-full transition-all duration-1000 ${getCategoryColor(cat)}`}
                                     style={{ width: `${percent}%` }}
                                 ></div>
-                            </div>
-                            <div className="text-[10px] text-stone-400 mt-1.5 font-mono text-right">
-                                {data.visited}/{data.total}
                             </div>
                         </div>
                     </div>
@@ -160,15 +165,15 @@ const StatisticsModal: React.FC<StatisticsModalProps> = ({ visited, onClose }) =
             <h3 className="text-xs font-bold text-stone-400 uppercase tracking-widest flex items-center gap-2 mb-3">
               <TrendingUp size={14} /> 全省份概览 ({stats.sortedProvinces.length}) • 按数量排序
             </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
               {stats.sortedProvinces.map(([province, data], index) => {
                  const percent = Math.round((data.visited / data.total) * 100);
                  const isCompleted = data.visited === data.total;
                  
                  return (
-                   <div key={province} className={`rounded-lg p-2.5 border transition-all relative overflow-hidden group
-                        ${isCompleted ? 'bg-emerald-50/50 border-emerald-100' : 'bg-white border-stone-100'}`}>
-                      <div className="flex justify-between items-center z-10 relative mb-2">
+                   <div key={province} className={`rounded-lg p-2.5 border transition-all relative overflow-hidden group flex flex-col gap-2
+                        ${isCompleted ? 'bg-emerald-50/30 border-emerald-100' : 'bg-white border-stone-100'}`}>
+                      <div className="flex justify-between items-center z-10 relative">
                          <span className="text-sm font-bold text-stone-700 flex items-center gap-1.5">
                             <span className={`text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-mono
                                 ${index < 3 ? 'bg-amber-100 text-amber-700' : 'bg-stone-100 text-stone-400'}`}>
@@ -182,7 +187,7 @@ const StatisticsModal: React.FC<StatisticsModalProps> = ({ visited, onClose }) =
                       </div>
                       <div className="h-1 w-full bg-stone-100 rounded-full overflow-hidden">
                             <div 
-                              className={`${isCompleted ? 'bg-emerald-500' : 'bg-stone-600'} h-full rounded-full`} 
+                              className={`${isCompleted ? 'bg-emerald-500' : 'bg-stone-500'} h-full rounded-full`} 
                               style={{ width: `${percent}%` }}
                             ></div>
                       </div>

@@ -591,7 +591,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [116.3916, 39.9055],
     yearInscribed: 2024,
     description: '“中正和谐，国之脊梁。”',
-    imageUrl: 'https://picsum.photos/seed/centralaxis/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/北京中轴线.png'
   },
   {
     id: '60',
