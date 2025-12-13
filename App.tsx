@@ -2,7 +2,9 @@ import React, { useState, useEffect, useMemo } from 'react';
 import ChinaMap from './components/ChinaMap';
 import SiteCard from './components/SiteCard';
 import StatisticsModal from './components/StatisticsModal';
+import CelebrationModal from './components/CelebrationModal';
 import { HERITAGE_SITES } from './constants';
+import { HeritageSite } from './types';
 import { Search, Trophy, Flag, CheckCircle2, CircleDashed, ChevronRight } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -13,11 +15,12 @@ const App: React.FC = () => {
     return saved ? new Set(JSON.parse(saved)) : new Set();
   });
 
-  // Filter for UNVISITED sites by default logic from previous request? 
-  // User asked for "Show Unvisited" button previously.
   const [showUnvisitedOnly, setShowUnvisitedOnly] = useState(false);
   const [search, setSearch] = useState('');
   const [isStatsOpen, setIsStatsOpen] = useState(false);
+  
+  // New State for Celebration
+  const [celebratingSite, setCelebratingSite] = useState<HeritageSite | null>(null);
   
   // --- Effects ---
   useEffect(() => {
@@ -32,7 +35,14 @@ const App: React.FC = () => {
       if (next.has(id)) {
         next.delete(id);
       } else {
+        // We are adding a new visit!
         next.add(id);
+        
+        // Trigger celebration
+        const site = HERITAGE_SITES.find(s => s.id === id);
+        if (site) {
+            setCelebratingSite(site);
+        }
       }
       return next;
     });
@@ -171,6 +181,14 @@ const App: React.FC = () => {
         <StatisticsModal 
           visited={visited} 
           onClose={() => setIsStatsOpen(false)} 
+        />
+      )}
+
+      {/* Celebration Modal */}
+      {celebratingSite && (
+        <CelebrationModal 
+            site={celebratingSite} 
+            onClose={() => setCelebratingSite(null)} 
         />
       )}
     </div>
