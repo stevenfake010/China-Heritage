@@ -1,6 +1,7 @@
 import { HeritageSite } from './types';
 
-// Updated to reflect the 59 sites as of late 2024 (including Beijing Central Axis and Badain Jaran Desert)
+// Updated to reflect the 60 sites as of 2025 (including Western Xia Imperial Tombs)
+// Descriptions replaced with relevant short poems, idioms, or quotes.
 export const HERITAGE_SITES: HeritageSite[] = [
   {
     id: '1',
@@ -9,7 +10,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '北京',
     coordinates: [116.3908, 39.9163],
     yearInscribed: 1987,
-    description: '紫禁城和沈阳故宫是明清两代皇权的中心，见证了中国封建王朝的最后辉煌，建筑艺术登峰造极。',
+    description: '“红墙宫里万重门，几代兴衰事已尘。”',
     imageUrl: 'http://photonjmaz.photo.store.qq.com/psc?/V53T3JRj4GQzb92jF6Zg1RYYvO3wcHZt/LiySpxowE0yeWXwBdXN*SQ0crIt6ZJPn7Psnq9bSsLank4UWiQVMOSoAHrmFaEdv0RZSHRlyxvjbdHYP0l5QavFqa3hb8KVeC3DeBHWfS1c!/b&bo=OAQ4BAAAAAAHFzY!&rf=viewer_4&t=5'
   },
   {
@@ -19,7 +20,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '陕西',
     coordinates: [109.2786, 34.3841],
     yearInscribed: 1987,
-    description: '被誉为“世界第八大奇迹”，成千上万的陶俑生动再现了秦军的阵列，是展示秦代军事力量和艺术水平的杰作。',
+    description: '“秦王扫六合，虎视何雄哉。”',
     imageUrl: 'https://picsum.photos/seed/terracotta/400/300'
   },
   {
@@ -29,7 +30,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '北京', // Spanning many, pinned to Badaling
     coordinates: [116.0, 40.4319],
     yearInscribed: 1987,
-    description: '人类历史上最伟大的建筑工程之一，蜿蜒万里的巨龙，见证了中国古代边疆防御体系的智慧与坚韧。',
+    description: '“不到长城非好汉。”',
     imageUrl: 'https://picsum.photos/seed/greatwall/400/300'
   },
   {
@@ -39,7 +40,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '甘肃',
     coordinates: [94.8174, 40.0392],
     yearInscribed: 1987,
-    description: '坐落在丝绸之路的咽喉要地，拥有世界上规模最大、内容最丰富的佛教艺术地，壁画与彩塑令人叹为观止。',
+    description: '“敦者，大也；煌者，盛也。一眼千年，梦回大唐。”',
     imageUrl: 'https://picsum.photos/seed/mogao/400/300'
   },
   {
@@ -49,7 +50,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '山东',
     coordinates: [117.1044, 36.2575],
     yearInscribed: 1987,
-    description: '五岳之首，自古便是帝王封禅祭祀之地，融合了壮丽的自然景观与深厚的历史文化内涵。',
+    description: '“会当凌绝顶，一览众山小。”',
     imageUrl: 'https://picsum.photos/seed/taishan/400/300'
   },
   {
@@ -59,7 +60,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '北京',
     coordinates: [115.9054, 39.6913],
     yearInscribed: 1987,
-    description: '这里发现了“北京人”头盖骨，为人类进化史的研究提供了极其重要的实物依据。',
+    description: '“远古足音，人类之源。”',
     imageUrl: 'https://picsum.photos/seed/zhoukoudian/400/300'
   },
   {
@@ -69,7 +70,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '安徽',
     coordinates: [118.1764, 30.1311],
     yearInscribed: 1990,
-    description: '“五岳归来不看山，黄山归来不看岳”。奇松、怪石、云海、温泉、冬雪“五绝”闻名天下。',
+    description: '“五岳归来不看山，黄山归来不看岳。”',
     imageUrl: 'https://picsum.photos/seed/huangshan/400/300'
   },
   {
@@ -79,7 +80,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '四川',
     coordinates: [103.9186, 33.2600],
     yearInscribed: 1992,
-    description: '童话世界般的景色，以翠海、叠瀑、彩林、雪峰、藏情、蓝冰“六绝”著称，水景之美甲天下。',
+    description: '“九寨归来不看水，人间仙境若梦回。”',
     imageUrl: 'https://picsum.photos/seed/jiuzhai/400/300'
   },
   {
@@ -89,7 +90,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '四川',
     coordinates: [103.8272, 32.7533],
     yearInscribed: 1992,
-    description: '以彩池、雪山、峡谷、森林“四绝”著称于世，巨型钙华坡谷如一条金色巨龙蜿蜒于雪山密林之中。',
+    description: '“圣地仙境，人间瑶池。”',
     imageUrl: 'https://picsum.photos/seed/huanglong/400/300'
   },
   {
@@ -99,7 +100,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '湖南',
     coordinates: [110.4167, 29.35],
     yearInscribed: 1992,
-    description: '张家界的核心，拥有奇特的石英砂岩峰林地貌，三千奇峰拔地而起，八百秀水蜿蜒其间。',
+    description: '“扩大的盆景，缩小的仙境。”',
     imageUrl: 'https://picsum.photos/seed/wulingyuan/400/300'
   },
   {
@@ -109,7 +110,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '河北',
     coordinates: [117.9388, 40.9877],
     yearInscribed: 1994,
-    description: '清代皇帝的夏宫，中国现存最大的古典皇家园林，融合了汉式宫殿与蒙藏风格的寺庙建筑。',
+    description: '“移天缩地在君怀，山庄巍巍帝王气。”',
     imageUrl: 'https://picsum.photos/seed/chengde/400/300'
   },
   {
@@ -119,7 +120,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '山东',
     coordinates: [116.9897, 35.5969],
     yearInscribed: 1994,
-    description: '儒家文化的发源地，纪念中国古代伟大思想家孔子的圣地，建筑规模宏大，文化积淀深厚。',
+    description: '“天不生仲尼，万古如长夜。”',
     imageUrl: 'https://picsum.photos/seed/confucius/400/300'
   },
   {
@@ -129,7 +130,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '湖北',
     coordinates: [111.0067, 32.4005],
     yearInscribed: 1994,
-    description: '中国道教圣地，其古建筑群展示了中国元、明、清三代在建筑和艺术上的极高成就。',
+    description: '“亘古无双胜境，天下第一仙山。”',
     imageUrl: 'https://picsum.photos/seed/wudang/400/300'
   },
   {
@@ -139,7 +140,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '西藏',
     coordinates: [91.1189, 29.6556],
     yearInscribed: 1994,
-    description: '藏传佛教的圣地，包含布达拉宫、大昭寺和罗布林卡，是西藏政教合一统治的象征。',
+    description: '“住进布达拉宫，我是雪域最大的王。”',
     imageUrl: 'https://picsum.photos/seed/potala/400/300'
   },
   {
@@ -149,7 +150,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '江西',
     coordinates: [115.9894, 29.5630],
     yearInscribed: 1996,
-    description: '中华文明的发祥地之一，以雄、奇、险、秀闻名，且融合了深厚的宗教、教育和政治历史背景。',
+    description: '“不识庐山真面目，只缘身在此山中。”',
     imageUrl: 'https://picsum.photos/seed/lushan/400/300'
   },
   {
@@ -159,7 +160,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '四川',
     coordinates: [103.3283, 29.5600],
     yearInscribed: 1996,
-    description: '普贤菩萨道场，秀甲天下；乐山大佛依山而凿，是世界上最大的石刻佛像。',
+    description: '“峨眉天下秀。山是一座佛，佛是一座山。”',
     imageUrl: 'https://picsum.photos/seed/emei/400/300'
   },
   {
@@ -169,7 +170,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '山西',
     coordinates: [112.19, 37.20],
     yearInscribed: 1997,
-    description: '中国保存最为完好的四大古城之一，完整展示了明清时期汉族城市的社会形态和经济繁荣。',
+    description: '“千年古城，晋商遗风。”',
     imageUrl: 'https://picsum.photos/seed/pingyao/400/300'
   },
   {
@@ -179,7 +180,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '江苏',
     coordinates: [120.6195, 31.3256],
     yearInscribed: 1997,
-    description: '咫尺之内再造乾坤，中国文人写意山水园林的典范，虽由人作，宛自天开。',
+    description: '“江南园林甲天下，苏州园林甲江南。”',
     imageUrl: 'https://picsum.photos/seed/suzhou/400/300'
   },
   {
@@ -189,7 +190,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '云南',
     coordinates: [100.2300, 26.8700],
     yearInscribed: 1997,
-    description: '融合了纳西族文化与汉、藏等民族文化精华的历史名城，小桥流水，布局独特。',
+    description: '“家家流水，户户垂杨。”',
     imageUrl: 'https://picsum.photos/seed/lijiang/400/300'
   },
   {
@@ -199,7 +200,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '北京',
     coordinates: [116.2731, 39.9997],
     yearInscribed: 1998,
-    description: '中国古典园林之首，利用昆明湖、万寿山为基址，汲取江南园林的设计手法而建成。',
+    description: '“虽由人作，宛自天开。”',
     imageUrl: 'https://picsum.photos/seed/summerpalace/400/300'
   },
   {
@@ -209,7 +210,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '北京',
     coordinates: [116.4072, 39.8822],
     yearInscribed: 1998,
-    description: '明清两代皇帝“祭天”“祈谷”的场所，布局严谨，建筑结构奇特，象征着“天圆地方”。',
+    description: '“天圆地方，敬天法祖。”',
     imageUrl: 'https://picsum.photos/seed/templeheaven/400/300'
   },
   {
@@ -219,7 +220,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '重庆',
     coordinates: [105.7833, 29.7000],
     yearInscribed: 1999,
-    description: '唐末宋初时期的摩崖石刻，以宝顶山、北山石刻最为著名，融合了佛教、道教和儒教文化。',
+    description: '“北敦南大，石刻瑰宝。”',
     imageUrl: 'https://picsum.photos/seed/dazu/400/300'
   },
   {
@@ -229,7 +230,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '福建',
     coordinates: [117.9575, 27.7303],
     yearInscribed: 1999,
-    description: '典型的丹霞地貌，也是朱子理学的摇篮，生物多样性丰富，九曲溪风光旖旎。',
+    description: '“九曲溪山，理学渊源。”',
     imageUrl: 'https://picsum.photos/seed/wuyishan/400/300'
   },
   {
@@ -239,7 +240,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '四川',
     coordinates: [103.6000, 31.0000],
     yearInscribed: 2000,
-    description: '青城山是中国道教发源地之一；都江堰是全世界迄今为止，年代最久、唯一留存、仍在一直使用的宏大水利工程。',
+    description: '“拜水都江堰，问道青城山。”',
     imageUrl: 'https://picsum.photos/seed/qingcheng/400/300'
   },
   {
@@ -249,7 +250,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '安徽',
     coordinates: [117.9856, 30.0039],
     yearInscribed: 2000,
-    description: '被誉为“中国画里的乡村”，保持了中国封建社会后期的村落形态，徽派建筑的杰出代表。',
+    description: '“中国画里的乡村，桃花源里人家。”',
     imageUrl: 'https://picsum.photos/seed/hongcun/400/300'
   },
   {
@@ -259,7 +260,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '河南',
     coordinates: [112.4694, 34.5539],
     yearInscribed: 2000,
-    description: '中国石刻艺术宝库之一，展现了北魏至唐代皇家造像的宏大风范，卢舍那大佛气势磅礴。',
+    description: '“卢舍那佛笑千年，伊水东流不复回。”',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Longmen_Grottoes_Fengxian_Temple_20201003.jpg/800px-Longmen_Grottoes_Fengxian_Temple_20201003.jpg'
   },
   {
@@ -269,7 +270,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '河北', // Multi-province, pinned to East Qing Tombs
     coordinates: [115.35, 40.12],
     yearInscribed: 2000,
-    description: '分布在河北、北京、江苏、湖北等地的明清帝王陵寝，代表了中国古代陵寝建筑艺术的最高成就。',
+    description: '“陵寝肃穆，帝王遗梦。”',
     imageUrl: 'https://picsum.photos/seed/mingtombs/400/300'
   },
   {
@@ -279,7 +280,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '山西',
     coordinates: [113.1311, 40.1097],
     yearInscribed: 2001,
-    description: '公元5世纪的佛教艺术杰作，石雕造像气势宏大，内容丰富，展现了中西文化融合的风格。',
+    description: '“雕饰奇伟，冠于一世。”',
     imageUrl: 'https://picsum.photos/seed/yungang/400/300'
   },
   {
@@ -289,7 +290,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '云南',
     coordinates: [99.0000, 27.0000],
     yearInscribed: 2003,
-    description: '金沙江、澜沧江、怒江三条大江在此平行北流，形成了世界上罕见的高山峡谷地貌。',
+    description: '“江水并流而不交，世界奇观。”',
     imageUrl: 'https://picsum.photos/seed/sanjiang/400/300'
   },
   {
@@ -299,7 +300,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '吉林',
     coordinates: [126.1833, 41.1500],
     yearInscribed: 2004,
-    description: '见证了高句丽政权的历史发展，其山城建筑和墓葬壁画具有极高的历史和艺术价值。',
+    description: '“东方金字塔，壁画艺术宝库。”',
     imageUrl: 'https://picsum.photos/seed/koguryo/400/300'
   },
   {
@@ -309,7 +310,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '澳门',
     coordinates: [113.5439, 22.1930],
     yearInscribed: 2005,
-    description: '中国境内现存年代最远、规模最大、保存最完整和最集中的中西建筑互相辉映的历史城区。',
+    description: '“中西合璧，莲岛风韵。”',
     imageUrl: 'https://picsum.photos/seed/macau/400/300'
   },
   {
@@ -319,7 +320,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '河南',
     coordinates: [114.3333, 36.1333],
     yearInscribed: 2006,
-    description: '商代晚期的都城遗址，甲骨文的出土地，证实了中国商代历史的存在，青铜器出土丰富。',
+    description: '“一片甲骨惊天下。”',
     imageUrl: 'https://picsum.photos/seed/yinxu/400/300'
   },
   {
@@ -329,7 +330,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '四川',
     coordinates: [103.0000, 30.8333],
     yearInscribed: 2006,
-    description: '全球最大最完整的大熊猫栖息地，保护了这一古老活化石及其赖以生存的生态环境。',
+    description: '“活化石的最后家园。”',
     imageUrl: 'https://picsum.photos/seed/panda/400/300'
   },
   {
@@ -339,7 +340,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '云南', // Multi-province, pinned to Shilin
     coordinates: [103.3236, 24.8144],
     yearInscribed: 2007,
-    description: '世界上最壮观的湿热带-亚热带喀斯特景观之一，包括云南石林、贵州荔波、重庆武隆等地。',
+    description: '“造化钟神秀，石林天下奇。”',
     imageUrl: 'https://picsum.photos/seed/karst/400/300'
   },
   {
@@ -349,7 +350,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '广东',
     coordinates: [112.55, 22.28],
     yearInscribed: 2007,
-    description: '集防卫、居住和中西建筑艺术于一体的多层塔楼式建筑，是华侨文化的独特见证。',
+    description: '“中西合璧，侨乡丰碑。”',
     imageUrl: 'https://picsum.photos/seed/kaiping/400/300'
   },
   {
@@ -359,7 +360,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '福建',
     coordinates: [117.0000, 24.5000],
     yearInscribed: 2008,
-    description: '独一无二的山区大型夯土民居建筑，功能齐全，布局合理，体现了客家人聚族而居的传统。',
+    description: '“东方古城堡，世界建筑奇葩。”',
     imageUrl: 'https://picsum.photos/seed/tulou/400/300'
   },
   {
@@ -369,7 +370,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '江西',
     coordinates: [118.0667, 28.9167],
     yearInscribed: 2008,
-    description: '以独特的花岗岩峰林地貌著称，展示了非凡的自然美，云雾缭绕中如仙境一般。',
+    description: '“揽胜遍五岳，绝景在三清。”',
     imageUrl: 'https://picsum.photos/seed/sanqingshan/400/300'
   },
   {
@@ -379,7 +380,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '山西',
     coordinates: [113.5500, 39.0167],
     yearInscribed: 2009,
-    description: '中国佛教四大名山之首，文殊菩萨道场，保存了大量的古代木结构建筑和佛教造像。',
+    description: '“金五台，清凉界。”',
     imageUrl: 'https://picsum.photos/seed/wutaishan/400/300'
   },
   {
@@ -389,7 +390,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '河南',
     coordinates: [113.0333, 34.4500],
     yearInscribed: 2010,
-    description: '位于嵩山腹地，包括少林寺、嵩阳书院等，展示了中国古代礼制、宗教、科技和教育的成就。',
+    description: '“天下武功出少林。”',
     imageUrl: 'https://picsum.photos/seed/songshan/400/300'
   },
   {
@@ -399,7 +400,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '贵州', // Multi-province, pinned to Chishui
     coordinates: [106.0000, 28.5000],
     yearInscribed: 2010,
-    description: '由红色砂砾岩在水作用下形成的丹崖赤壁地貌，色彩斑斓，形态各异。',
+    description: '“色如渥丹，灿若明霞。”',
     imageUrl: 'https://picsum.photos/seed/danxia/400/300'
   },
   {
@@ -409,7 +410,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '浙江',
     coordinates: [120.1408, 30.2458],
     yearInscribed: 2011,
-    description: '著名的淡水湖景观，其堤、岛、桥、塔与周围群山交相辉映，是“天人合一”哲学的完美体现。',
+    description: '“欲把西湖比西子，淡妆浓抹总相宜。”',
     imageUrl: 'https://picsum.photos/seed/westlake/400/300'
   },
   {
@@ -419,7 +420,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '内蒙古',
     coordinates: [116.1833, 42.3500],
     yearInscribed: 2012,
-    description: '元代夏都，见证了蒙元帝国游牧文明与农耕文明的融合，布局独特。',
+    description: '“草色天光，帝都遗梦。”',
     imageUrl: 'https://picsum.photos/seed/xanadu/400/300'
   },
   {
@@ -429,7 +430,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '云南',
     coordinates: [102.9333, 24.6667],
     yearInscribed: 2012,
-    description: '寒武纪生命大爆发的见证，保存了大量保存精美的早期动物化石，揭示了动物生命演化的早期历史。',
+    description: '“寒武纪的生命密码。”',
     imageUrl: 'https://picsum.photos/seed/chengjiang/400/300'
   },
   {
@@ -439,7 +440,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '新疆',
     coordinates: [88.0, 43.8],
     yearInscribed: 2013,
-    description: '拥有壮美的雪峰冰川、森林草甸和河流湖泊，展示了独特的自然美和生态过程。',
+    description: '“明月出天山，苍茫云海间。”',
     imageUrl: 'https://picsum.photos/seed/tianshan/400/300'
   },
   {
@@ -449,7 +450,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '云南',
     coordinates: [102.7333, 23.0833],
     yearInscribed: 2013,
-    description: '哈尼族人世世代代在哀牢山雕刻出的山水画卷，展现了人与自然和谐共生的农业文明奇迹。',
+    description: '“大地的雕塑，云端的画卷。”',
     imageUrl: 'https://picsum.photos/seed/hani/400/300'
   },
   {
@@ -459,7 +460,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '江苏', // Multi, pinned to Yangzhou
     coordinates: [119.4129, 32.3942],
     yearInscribed: 2014,
-    description: '世界上最长、最古老的人工水道，沟通了南北交通，促进了中国经济文化的交流与发展。',
+    description: '“尽道隋亡为此河，至今千里赖通波。”',
     imageUrl: 'https://picsum.photos/seed/grandcanal/400/300'
   },
   {
@@ -469,7 +470,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '陕西', // Multi, pinned to Chang'an start
     coordinates: [108.9398, 34.3416],
     yearInscribed: 2014,
-    description: '古代东西方文明交流的桥梁，沿线遗迹众多，见证了长达数个世纪的贸易与文化传播。',
+    description: '“劝君更尽一杯酒，西出阳关无故人。”',
     imageUrl: 'https://picsum.photos/seed/silkroad/400/300'
   },
   {
@@ -479,7 +480,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '湖南', // Multi: Hunan, Hubei, Guizhou
     coordinates: [109.9667, 28.9667],
     yearInscribed: 2015,
-    description: '见证了中国古代对西南少数民族地区实行的“土司制度”，体现了国家统一与民族自治的结合。',
+    description: '“齐政修教，因俗而治。”',
     imageUrl: 'https://picsum.photos/seed/tusi/400/300'
   },
   {
@@ -489,7 +490,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '广西',
     coordinates: [107.0333, 22.2500],
     yearInscribed: 2016,
-    description: '壮族先民在悬崖峭壁上绘制的赭红色岩画，场面宏大，反映了骆越古国的祭祀文化。',
+    description: '“千古之谜，崖壁史书。”',
     imageUrl: 'https://picsum.photos/seed/huashan/400/300'
   },
   {
@@ -499,7 +500,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '湖北',
     coordinates: [110.5000, 31.5000],
     yearInscribed: 2016,
-    description: '拥有北半球中纬度地区保存最完好的原始森林，生物多样性极其丰富，是“野人”传说的发源地。',
+    description: '“野人传说，原始秘境。”',
     imageUrl: 'https://picsum.photos/seed/shennongjia/400/300'
   },
   {
@@ -509,7 +510,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '青海',
     coordinates: [92.0000, 35.0000],
     yearInscribed: 2017,
-    description: '世界上海拔最高、面积最大的高原湿地生态系统之一，藏羚羊等野生动物的天堂。',
+    description: '“万山之祖，生灵天堂。”',
     imageUrl: 'https://picsum.photos/seed/hohxil/400/300'
   },
   {
@@ -519,7 +520,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '福建',
     coordinates: [118.0667, 24.4500],
     yearInscribed: 2017,
-    description: '“万国建筑博览”，见证了近代中外多元文化的碰撞与融合，环境优雅，琴声悠扬。',
+    description: '“琴声悠扬，海上花园。”',
     imageUrl: 'https://picsum.photos/seed/kulangsu/400/300'
   },
   {
@@ -529,7 +530,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '贵州',
     coordinates: [108.6975, 27.9083],
     yearInscribed: 2018,
-    description: '武陵山脉的主峰，宛如一座生态孤岛，保存了亚热带孤岛山岳生态系统和珍稀物种黔金丝猴。',
+    description: '“天空之城，梵天净土。”',
     imageUrl: 'https://picsum.photos/seed/fanjingshan/400/300'
   },
   {
@@ -539,7 +540,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '浙江',
     coordinates: [119.9833, 30.3833],
     yearInscribed: 2019,
-    description: '实证中华五千年文明史的圣地，拥有宏大的城址、复杂的水利系统和精美的玉器。',
+    description: '“中华文明，上下五千年。”',
     imageUrl: 'https://picsum.photos/seed/liangzhu/400/300'
   },
   {
@@ -549,7 +550,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '江苏',
     coordinates: [120.8333, 32.9667],
     yearInscribed: 2019,
-    description: '东亚-澳大利西亚候鸟迁飞区的重要枢纽，为数百万候鸟提供了宝贵的停歇地。',
+    description: '“落霞与孤鹜齐飞，秋水共长天一色。”',
     imageUrl: 'https://picsum.photos/seed/ylt/400/300'
   },
   {
@@ -559,7 +560,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '福建',
     coordinates: [118.5833, 24.9167],
     yearInscribed: 2021,
-    description: '宋元时期“东方第一大港”，多元宗教与文化共存，见证了海上丝绸之路的繁荣。',
+    description: '“涨海声中万国商。”',
     imageUrl: 'https://picsum.photos/seed/quanzhou/400/300'
   },
   {
@@ -569,7 +570,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '云南',
     coordinates: [99.9961, 22.1819],
     yearInscribed: 2023,
-    description: '全球首个茶主题世界文化遗产，展现了布朗族等民族“林茶共生、人地和谐”的智慧。',
+    description: '“千年茶林，世界茶源。”',
     imageUrl: 'https://picsum.photos/seed/jingmai/400/300'
   },
   {
@@ -579,7 +580,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '内蒙古',
     coordinates: [102.3333, 39.8333],
     yearInscribed: 2024,
-    description: '拥有世界最高的固定沙丘和密集的沙漠湖泊，风光独特，被誉为“上帝画下的曲线”。',
+    description: '“大漠孤烟，上帝画下的曲线。”',
     imageUrl: 'https://picsum.photos/seed/badain/400/300'
   },
   {
@@ -589,7 +590,17 @@ export const HERITAGE_SITES: HeritageSite[] = [
     province: '北京',
     coordinates: [116.3916, 39.9055],
     yearInscribed: 2024,
-    description: '纵贯北京老城南北，全长7.8公里，统领了整个城市的规划格局，是中国传统都城中轴线发展的集大成者。',
+    description: '“中正和谐，国之脊梁。”',
     imageUrl: 'https://picsum.photos/seed/centralaxis/400/300'
+  },
+  {
+    id: '60',
+    name: '西夏陵',
+    category: '文化遗产',
+    province: '宁夏',
+    coordinates: [105.9747, 38.4323],
+    yearInscribed: 2025,
+    description: '“神秘西夏，东方金字塔。”',
+    imageUrl: 'https://picsum.photos/seed/xixiatombs/400/300'
   }
 ];

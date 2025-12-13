@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import ChinaMap from './components/ChinaMap';
 import SiteCard from './components/SiteCard';
+import StatisticsModal from './components/StatisticsModal';
 import { HERITAGE_SITES } from './constants';
-import { Search, Trophy, Map as MapIcon, Grid, Flag } from 'lucide-react';
+import { Search, Trophy, Flag, CheckCircle2, CircleDashed, ChevronRight } from 'lucide-react';
 
 const App: React.FC = () => {
   // --- State ---
@@ -12,10 +13,12 @@ const App: React.FC = () => {
     return saved ? new Set(JSON.parse(saved)) : new Set();
   });
 
-  const [filter, setFilter] = useState<'all' | 'visited' | 'unvisited'>('all');
+  // Filter for UNVISITED sites by default logic from previous request? 
+  // User asked for "Show Unvisited" button previously.
+  const [showUnvisitedOnly, setShowUnvisitedOnly] = useState(false);
   const [search, setSearch] = useState('');
-  const [view, setView] = useState<'map' | 'grid'>('map'); // Mobile view toggle
-
+  const [isStatsOpen, setIsStatsOpen] = useState(false);
+  
   // --- Effects ---
   useEffect(() => {
     // Persistence
@@ -43,11 +46,12 @@ const App: React.FC = () => {
                             site.description.includes(search);
       const isVisited = visited.has(site.id);
       
-      if (filter === 'visited') return matchesSearch && isVisited;
-      if (filter === 'unvisited') return matchesSearch && !isVisited;
+      // If filtering for unvisited, exclude visited sites
+      if (showUnvisitedOnly) return matchesSearch && !isVisited;
+      
       return matchesSearch;
     });
-  }, [search, visited, filter]);
+  }, [search, visited, showUnvisitedOnly]);
 
   const stats = {
     total: HERITAGE_SITES.length,
@@ -74,17 +78,22 @@ const App: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-6">
+          {/* Stats Trigger */}
+          <div 
+            className="flex items-center gap-6 cursor-pointer group p-2 -mr-2 rounded-xl hover:bg-stone-50 transition-all"
+            onClick={() => setIsStatsOpen(true)}
+            title="查看详细统计"
+          >
             <div className="hidden md:flex flex-col items-end">
-                <div className="text-sm font-medium text-stone-600">
-                    打卡进度
+                <div className="text-sm font-medium text-stone-600 flex items-center gap-1 group-hover:text-stone-900">
+                    打卡进度 <ChevronRight size={14} className="text-stone-400 group-hover:text-stone-600 group-hover:translate-x-0.5 transition-transform" />
                 </div>
                 <div className="text-lg font-bold font-serif text-emerald-700">
                     {stats.visited} <span className="text-stone-400 text-base font-sans font-normal">/ {stats.total}</span>
                 </div>
             </div>
             
-            {/* Progress Bar (Circular or Linear) */}
+            {/* Progress Bar (Circular) */}
             <div className="w-12 h-12 relative flex items-center justify-center">
                  <svg className="w-full h-full transform -rotate-90">
                     <circle cx="24" cy="24" r="20" stroke="#e7e5e4" strokeWidth="4" fill="transparent" />
@@ -96,77 +105,48 @@ const App: React.FC = () => {
                         className="transition-all duration-1000 ease-out"
                     />
                  </svg>
-                 <span className="absolute text-[10px] font-bold text-stone-700">{stats.percentage}%</span>
+                 <span className="absolute text-[10px] font-bold text-stone-700 group-hover:text-stone-900">{stats.percentage}%</span>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 space-y-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
         
         {/* --- Map Section --- */}
-        <section className={`bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-white ${view === 'grid' ? 'hidden md:block' : 'block'}`}>
+        <section className="bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-white block mb-6">
             <ChinaMap visitedSiteIds={visited} onSiteClick={toggleVisit} />
         </section>
 
         {/* --- Controls Section --- */}
-        <section className="flex flex-col md:flex-row gap-4 items-center justify-between sticky top-24 z-30 bg-stone-100/95 py-4 backdrop-blur-sm -mx-4 px-4 md:mx-0 md:px-0">
-            {/* View Toggle (Mobile) */}
-            <div className="flex md:hidden bg-white rounded-lg p-1 shadow-sm border border-stone-200">
-                <button 
-                    onClick={() => setView('map')}
-                    className={`p-2 rounded ${view === 'map' ? 'bg-stone-100 text-stone-900' : 'text-stone-400'}`}
-                >
-                    <MapIcon size={20} />
-                </button>
-                <button 
-                    onClick={() => setView('grid')}
-                    className={`p-2 rounded ${view === 'grid' ? 'bg-stone-100 text-stone-900' : 'text-stone-400'}`}
-                >
-                    <Grid size={20} />
-                </button>
-            </div>
-
+        <section className="flex flex-col md:flex-row gap-3 items-center justify-between sticky top-24 z-30 bg-stone-100/95 py-2 backdrop-blur-sm -mx-4 px-4 md:mx-0 md:px-0 mb-6">
             {/* Search */}
             <div className="relative w-full md:w-96">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-stone-400" size={18} />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-stone-400" size={16} />
                 <input 
                     type="text" 
                     placeholder="搜索遗产地或省份..." 
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-200 focus:ring-2 focus:ring-red-100 focus:border-red-400 outline-none transition-all shadow-sm bg-white"
+                    className="w-full pl-9 pr-4 py-2 rounded-xl border border-stone-200 focus:ring-1 focus:ring-red-200 focus:border-red-400 outline-none transition-all shadow-sm bg-white text-sm"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
             </div>
 
-            {/* Filter Tabs */}
-            <div className="flex bg-white rounded-xl p-1 shadow-sm border border-stone-200 overflow-x-auto w-full md:w-auto">
-                <button
-                    onClick={() => setFilter('all')}
-                    className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all flex-1 md:flex-none
-                        ${filter === 'all' ? 'bg-stone-800 text-white shadow-md' : 'text-stone-500 hover:bg-stone-50'}`}
-                >
-                    全部
-                </button>
-                <button
-                    onClick={() => setFilter('visited')}
-                    className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all flex-1 md:flex-none
-                        ${filter === 'visited' ? 'bg-emerald-600 text-white shadow-md' : 'text-stone-500 hover:bg-stone-50'}`}
-                >
-                    已打卡
-                </button>
-                <button
-                    onClick={() => setFilter('unvisited')}
-                    className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all flex-1 md:flex-none
-                        ${filter === 'unvisited' ? 'bg-amber-600 text-white shadow-md' : 'text-stone-500 hover:bg-stone-50'}`}
-                >
-                    未去过
-                </button>
-            </div>
+            {/* Filter Toggle Button */}
+            <button
+                onClick={() => setShowUnvisitedOnly(!showUnvisitedOnly)}
+                className={`w-full md:w-auto px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center justify-center gap-2 border shadow-sm
+                    ${showUnvisitedOnly 
+                        ? 'bg-stone-800 text-white border-stone-800' 
+                        : 'bg-white text-stone-600 border-stone-200 hover:bg-stone-50'}`}
+            >
+                {showUnvisitedOnly ? <CircleDashed size={16} className="text-white" /> : <CheckCircle2 size={16} className="text-stone-400" />}
+                {showUnvisitedOnly ? '已过滤：只看未打卡' : '只看未打卡'}
+            </button>
         </section>
 
         {/* --- List Section --- */}
-        <section className={`${view === 'map' ? 'hidden md:grid' : 'grid'} grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6`}>
+        <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
             {filteredSites.length > 0 ? (
                 filteredSites.map((site) => (
                     <SiteCard 
@@ -185,6 +165,14 @@ const App: React.FC = () => {
         </section>
 
       </main>
+
+      {/* Statistics Modal */}
+      {isStatsOpen && (
+        <StatisticsModal 
+          visited={visited} 
+          onClose={() => setIsStatsOpen(false)} 
+        />
+      )}
     </div>
   );
 };
