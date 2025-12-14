@@ -12,7 +12,7 @@ const CelebrationModal: React.FC<CelebrationModalProps> = ({ site, onClose }) =>
   
   useEffect(() => {
     // 1. Fire Confetti immediately on mount
-    const duration = 3000;
+    const duration = 1500; // Reduced from 3000ms to 1500ms
     const end = Date.now() + duration;
 
     // Golden and Red colors for premium/chinese feel
