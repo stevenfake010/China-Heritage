@@ -122,7 +122,7 @@ const ChinaMap: React.FC<ChinaMapProps> = ({ visitedSiteIds, onSiteClick }) => {
             return (
               <path
                 key={`province-${i}`}
-                d={pathGenerator(feature) || ''}
+                d={pathGenerator(feature as any) || ''}
                 fill={isHovered ? '#d6d3d1' : '#e5e7eb'} // stone-300 : gray-200
                 stroke="white"
                 strokeWidth={1}

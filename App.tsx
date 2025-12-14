@@ -5,7 +5,7 @@ import StatisticsModal from './components/StatisticsModal';
 import CelebrationModal from './components/CelebrationModal';
 import { HERITAGE_SITES } from './constants';
 import { HeritageSite } from './types';
-import { Search, Trophy, Flag, CheckCircle2, CircleDashed, ChevronRight } from 'lucide-react';
+import { Search, Trophy, Flag, CheckCircle2, CircleDashed, ChevronRight, MapPin, ChevronDown } from 'lucide-react';
 
 const App: React.FC = () => {
   // --- State ---
@@ -17,6 +17,7 @@ const App: React.FC = () => {
 
   const [showUnvisitedOnly, setShowUnvisitedOnly] = useState(false);
   const [search, setSearch] = useState('');
+  const [selectedProvince, setSelectedProvince] = useState('');
   const [isStatsOpen, setIsStatsOpen] = useState(false);
   
   // New State for Celebration
@@ -49,19 +50,25 @@ const App: React.FC = () => {
   };
 
   // --- Derived Data ---
+  const provinces = useMemo(() => {
+    return Array.from(new Set(HERITAGE_SITES.map(s => s.province)))
+      .sort((a, b) => a.localeCompare(b, 'zh-CN'));
+  }, []);
+
   const filteredSites = useMemo(() => {
     return HERITAGE_SITES.filter((site) => {
       const matchesSearch = site.name.includes(search) || 
                             site.province.includes(search) ||
                             site.description.includes(search);
+      const matchesProvince = selectedProvince === '' || site.province === selectedProvince;
       const isVisited = visited.has(site.id);
       
       // If filtering for unvisited, exclude visited sites
-      if (showUnvisitedOnly) return matchesSearch && !isVisited;
+      if (showUnvisitedOnly && isVisited) return false;
       
-      return matchesSearch;
+      return matchesSearch && matchesProvince;
     });
-  }, [search, visited, showUnvisitedOnly]);
+  }, [search, visited, showUnvisitedOnly, selectedProvince]);
 
   const stats = {
     total: HERITAGE_SITES.length,
@@ -130,22 +137,40 @@ const App: React.FC = () => {
 
         {/* --- Controls Section --- */}
         <section className="flex flex-col md:flex-row gap-3 items-center justify-between sticky top-24 z-30 bg-stone-100/95 py-2 backdrop-blur-sm -mx-4 px-4 md:mx-0 md:px-0 mb-6">
-            {/* Search */}
-            <div className="relative w-full md:w-96">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-stone-400" size={16} />
-                <input 
-                    type="text" 
-                    placeholder="搜索遗产地或省份..." 
-                    className="w-full pl-9 pr-4 py-2 rounded-xl border border-stone-200 focus:ring-1 focus:ring-red-200 focus:border-red-400 outline-none transition-all shadow-sm bg-white text-sm"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                />
+            <div className="flex flex-col md:flex-row gap-3 w-full md:flex-1">
+                {/* Search */}
+                <div className="relative w-full md:w-72">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-stone-400" size={16} />
+                    <input 
+                        type="text" 
+                        placeholder="搜索关键词..." 
+                        className="w-full pl-9 pr-4 py-2 rounded-xl border border-stone-200 focus:ring-1 focus:ring-red-200 focus:border-red-400 outline-none transition-all shadow-sm bg-white text-sm"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                </div>
+
+                {/* Province Filter */}
+                <div className="relative w-full md:w-48">
+                    <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-stone-400" size={16} />
+                    <select
+                        className="w-full pl-9 pr-8 py-2 rounded-xl border border-stone-200 focus:ring-1 focus:ring-red-200 focus:border-red-400 outline-none transition-all shadow-sm bg-white text-sm appearance-none cursor-pointer text-stone-600 truncate"
+                        value={selectedProvince}
+                        onChange={(e) => setSelectedProvince(e.target.value)}
+                    >
+                        <option value="">全中国 ({HERITAGE_SITES.length})</option>
+                        {provinces.map(p => (
+                            <option key={p} value={p}>{p}</option>
+                        ))}
+                    </select>
+                    <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-stone-400 pointer-events-none" size={14} />
+                </div>
             </div>
 
             {/* Filter Toggle Button */}
             <button
                 onClick={() => setShowUnvisitedOnly(!showUnvisitedOnly)}
-                className={`w-full md:w-auto px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center justify-center gap-2 border shadow-sm
+                className={`w-full md:w-auto px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center justify-center gap-2 border shadow-sm whitespace-nowrap
                     ${showUnvisitedOnly 
                         ? 'bg-stone-800 text-white border-stone-800' 
                         : 'bg-white text-stone-600 border-stone-200 hover:bg-stone-50'}`}

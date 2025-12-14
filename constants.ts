@@ -281,7 +281,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [113.1311, 40.1097],
     yearInscribed: 2001,
     description: '“雕饰奇伟，冠于一世。”',
-    imageUrl: 'https://picsum.photos/seed/yungang/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/云冈石窟.png'
   },
   {
     id: '29',
@@ -291,7 +291,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [99.0000, 27.0000],
     yearInscribed: 2003,
     description: '“江水并流而不交，世界奇观。”',
-    imageUrl: 'https://picsum.photos/seed/sanjiang/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/云南三江并流.png'
   },
   {
     id: '30',
@@ -301,7 +301,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [126.1833, 41.1500],
     yearInscribed: 2004,
     description: '“东方金字塔，壁画艺术宝库。”',
-    imageUrl: 'https://picsum.photos/seed/koguryo/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/高句丽王城.png'
   },
   {
     id: '31',
@@ -311,7 +311,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [113.5439, 22.1930],
     yearInscribed: 2005,
     description: '“中西合璧，莲岛风韵。”',
-    imageUrl: 'https://picsum.photos/seed/macau/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/澳门大三巴.png'
   },
   {
     id: '32',
@@ -321,7 +321,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [114.3333, 36.1333],
     yearInscribed: 2006,
     description: '“一片甲骨惊天下。”',
-    imageUrl: 'https://picsum.photos/seed/yinxu/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/殷墟.png'
   },
   {
     id: '33',
@@ -331,7 +331,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [103.0000, 30.8333],
     yearInscribed: 2006,
     description: '“活化石的最后家园。”',
-    imageUrl: 'https://picsum.photos/seed/panda/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/四川大熊猫繁育基地.png'
   },
   {
     id: '34',
@@ -341,7 +341,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [103.3236, 24.8144],
     yearInscribed: 2007,
     description: '“造化钟神秀，石林天下奇。”',
-    imageUrl: 'https://picsum.photos/seed/karst/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/中国南方喀斯特.png'
   },
   {
     id: '35',
@@ -351,7 +351,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [112.55, 22.28],
     yearInscribed: 2007,
     description: '“中西合璧，侨乡丰碑。”',
-    imageUrl: 'https://picsum.photos/seed/kaiping/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/开平碉楼.png'
   },
   {
     id: '36',
@@ -361,7 +361,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [117.0000, 24.5000],
     yearInscribed: 2008,
     description: '“东方古城堡，世界建筑奇葩。”',
-    imageUrl: 'https://picsum.photos/seed/tulou/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/福建土楼.png'
   },
   {
     id: '37',
@@ -371,7 +371,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [118.0667, 28.9167],
     yearInscribed: 2008,
     description: '“揽胜遍五岳，绝景在三清。”',
-    imageUrl: 'https://picsum.photos/seed/sanqingshan/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/三清山.png'
   },
   {
     id: '38',
@@ -381,7 +381,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [113.5500, 39.0167],
     yearInscribed: 2009,
     description: '“金五台，清凉界。”',
-    imageUrl: 'https://picsum.photos/seed/wutaishan/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/五台山.png'
   },
   {
     id: '39',
@@ -391,7 +391,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [113.0333, 34.4500],
     yearInscribed: 2010,
     description: '“天下武功出少林。”',
-    imageUrl: 'https://picsum.photos/seed/songshan/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/“天地之中”历史建筑群.png'
   },
   {
     id: '40',
@@ -401,7 +401,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [106.0000, 28.5000],
     yearInscribed: 2010,
     description: '“色如渥丹，灿若明霞。”',
-    imageUrl: 'https://picsum.photos/seed/danxia/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/中国丹霞.png'
   },
   {
     id: '41',
@@ -411,7 +411,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [120.1408, 30.2458],
     yearInscribed: 2011,
     description: '“欲把西湖比西子，淡妆浓抹总相宜。”',
-    imageUrl: 'https://picsum.photos/seed/westlake/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/西湖.png'
   },
   {
     id: '42',
@@ -421,7 +421,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [116.1833, 42.3500],
     yearInscribed: 2012,
     description: '“草色天光，帝都遗梦。”',
-    imageUrl: 'https://picsum.photos/seed/xanadu/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/元上都遗址.png'
   },
   {
     id: '43',
@@ -431,7 +431,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [102.9333, 24.6667],
     yearInscribed: 2012,
     description: '“寒武纪的生命密码。”',
-    imageUrl: 'https://picsum.photos/seed/chengjiang/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/澄江化石地.png'
   },
   {
     id: '44',
@@ -441,7 +441,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [88.0, 43.8],
     yearInscribed: 2013,
     description: '“明月出天山，苍茫云海间。”',
-    imageUrl: 'https://picsum.photos/seed/tianshan/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/新疆天山.png'
   },
   {
     id: '45',
@@ -451,7 +451,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [102.7333, 23.0833],
     yearInscribed: 2013,
     description: '“大地的雕塑，云端的画卷。”',
-    imageUrl: 'https://picsum.photos/seed/hani/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/红河哈尼梯田.png'
   },
   {
     id: '46',
@@ -461,7 +461,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [119.4129, 32.3942],
     yearInscribed: 2014,
     description: '“尽道隋亡为此河，至今千里赖通波。”',
-    imageUrl: 'https://picsum.photos/seed/grandcanal/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/大运河.png'
   },
   {
     id: '47',
@@ -471,7 +471,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [108.9398, 34.3416],
     yearInscribed: 2014,
     description: '“劝君更尽一杯酒，西出阳关无故人。”',
-    imageUrl: 'https://picsum.photos/seed/silkroad/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/丝绸之路.png'
   },
   {
     id: '48',
@@ -481,7 +481,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [109.9667, 28.9667],
     yearInscribed: 2015,
     description: '“齐政修教，因俗而治。”',
-    imageUrl: 'https://picsum.photos/seed/tusi/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/土司遗址.png'
   },
   {
     id: '49',
@@ -491,7 +491,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [107.0333, 22.2500],
     yearInscribed: 2016,
     description: '“千古之谜，崖壁史书。”',
-    imageUrl: 'https://picsum.photos/seed/huashan/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/左江花山岩画.png'
   },
   {
     id: '50',
@@ -501,7 +501,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [110.5000, 31.5000],
     yearInscribed: 2016,
     description: '“野人传说，原始秘境。”',
-    imageUrl: 'https://picsum.photos/seed/shennongjia/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/湖北神农架.png'
   },
   {
     id: '51',
@@ -511,7 +511,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [92.0000, 35.0000],
     yearInscribed: 2017,
     description: '“万山之祖，生灵天堂。”',
-    imageUrl: 'https://picsum.photos/seed/hohxil/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/可可西里.png'
   },
   {
     id: '52',
@@ -521,7 +521,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [118.0667, 24.4500],
     yearInscribed: 2017,
     description: '“琴声悠扬，海上花园。”',
-    imageUrl: 'https://picsum.photos/seed/kulangsu/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/鼓浪屿.png'
   },
   {
     id: '53',
@@ -531,7 +531,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [108.6975, 27.9083],
     yearInscribed: 2018,
     description: '“天空之城，梵天净土。”',
-    imageUrl: 'https://picsum.photos/seed/fanjingshan/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/梵净山.png'
   },
   {
     id: '54',
@@ -541,7 +541,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [119.9833, 30.3833],
     yearInscribed: 2019,
     description: '“中华文明，上下五千年。”',
-    imageUrl: 'https://picsum.photos/seed/liangzhu/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/良渚遗址.png'
   },
   {
     id: '55',
@@ -551,7 +551,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [120.8333, 32.9667],
     yearInscribed: 2019,
     description: '“落霞与孤鹜齐飞，秋水共长天一色。”',
-    imageUrl: 'https://picsum.photos/seed/ylt/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/黄渤海候鸟栖息地.png'
   },
   {
     id: '56',
@@ -561,7 +561,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [118.5833, 24.9167],
     yearInscribed: 2021,
     description: '“涨海声中万国商。”',
-    imageUrl: 'https://picsum.photos/seed/quanzhou/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/泉州.png'
   },
   {
     id: '57',
@@ -571,7 +571,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [99.9961, 22.1819],
     yearInscribed: 2023,
     description: '“千年茶林，世界茶源。”',
-    imageUrl: 'https://picsum.photos/seed/jingmai/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/景迈普洱.png'
   },
   {
     id: '58',
@@ -581,7 +581,7 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [102.3333, 39.8333],
     yearInscribed: 2024,
     description: '“大漠孤烟，上帝画下的曲线。”',
-    imageUrl: 'https://picsum.photos/seed/badain/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/巴丹吉林沙漠－沙山湖泊群.png'
   },
   {
     id: '59',
@@ -601,6 +601,6 @@ export const HERITAGE_SITES: HeritageSite[] = [
     coordinates: [105.9747, 38.4323],
     yearInscribed: 2025,
     description: '“神秘西夏，东方金字塔。”',
-    imageUrl: 'https://picsum.photos/seed/xixiatombs/400/300'
+    imageUrl: 'https://raw.githubusercontent.com/stevenfake010/nice-heritage-in-china/main/img/西夏陵.png'
   }
 ];
