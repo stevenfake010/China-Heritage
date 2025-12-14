@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { HeritageSite } from '../types';
-import { X, Share2, MapPin } from 'lucide-react';
+import { X, Download, MapPin, Quote } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface CelebrationModalProps {
@@ -16,7 +16,7 @@ const CelebrationModal: React.FC<CelebrationModalProps> = ({ site, onClose }) =>
     const end = Date.now() + duration;
 
     // Golden and Red colors for premium/chinese feel
-    const colors = ['#d97706', '#dc2626', '#fcd34d', '#ffffff']; 
+    const colors = ['#b45309', '#dc2626', '#fcd34d', '#f5f5f4']; 
 
     (function frame() {
       confetti({
@@ -39,107 +39,160 @@ const CelebrationModal: React.FC<CelebrationModalProps> = ({ site, onClose }) =>
       }
     }());
 
-    // 2. A big burst in the center after a slight delay
+    // 2. A big burst in the center after the card settles
     setTimeout(() => {
         confetti({
-            particleCount: 150,
+            particleCount: 120,
             spread: 100,
-            origin: { y: 0.6 },
+            origin: { y: 0.65 },
             colors: colors,
+            gravity: 0.8,
+            scalar: 1.1,
             disableForReducedMotion: true
         });
-    }, 400);
+    }, 500);
 
   }, []);
 
+  const today = new Date();
+  const dateStr = `${today.getFullYear()}.${(today.getMonth() + 1).toString().padStart(2, '0')}.${today.getDate().toString().padStart(2, '0')}`;
+
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 perspective-1000">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-stone-900/80 backdrop-blur-md transition-opacity duration-500 animate-in fade-in"
+        className="absolute inset-0 bg-stone-900/70 backdrop-blur-sm transition-opacity duration-500 animate-in fade-in"
         onClick={onClose}
       />
 
-      {/* Card Container */}
-      <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-500 animate-in zoom-in-95 slide-in-from-bottom-4">
+      {/* Postcard Container - 3D entrance animation */}
+      <div className="relative w-full max-w-[420px] transform transition-all duration-700 animate-in zoom-in-90 slide-in-from-bottom-8 rotate-1 hover:rotate-0">
         
-        {/* Close Button */}
+        {/* Close Button (Floating outside) */}
         <button 
             onClick={onClose}
-            className="absolute top-4 right-4 z-20 p-2 bg-black/20 hover:bg-black/40 text-white rounded-full backdrop-blur-sm transition-colors"
+            className="absolute -top-12 right-0 md:-right-12 z-20 p-2 text-white/80 hover:text-white transition-colors"
         >
-            <X size={20} />
+            <X size={24} />
+            <span className="sr-only">关闭</span>
         </button>
 
-        {/* Image Section */}
-        <div className="relative aspect-[4/3] w-full">
-            <img 
-                src={site.imageUrl} 
-                alt={site.name} 
-                className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-stone-900/90 via-transparent to-transparent"></div>
+        {/* The Postcard */}
+        <div className="bg-[#fcfbf9] rounded-sm shadow-2xl overflow-hidden relative">
             
-            {/* Stamp Effect */}
-            <div className="absolute bottom-8 right-8 z-10 stamp-animate pointer-events-none select-none">
-                <div className="w-24 h-24 border-[3px] border-red-700 rounded-full flex items-center justify-center relative opacity-90 rotate-[-15deg]">
-                    <div className="absolute inset-1 border border-red-700 rounded-full"></div>
-                    <div className="text-center">
-                        <div className="text-red-700 font-serif font-bold text-xs tracking-widest uppercase">Visited</div>
-                        <div className="text-red-700 font-serif font-bold text-lg">打卡留念</div>
-                        <div className="text-red-700 text-[10px] font-mono">{new Date().toLocaleDateString()}</div>
+            {/* Paper Texture Overlay (Subtle noise) */}
+            <div className="absolute inset-0 pointer-events-none opacity-[0.03]" 
+                 style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}>
+            </div>
+
+            {/* --- Postcard Content --- */}
+            <div className="p-3 pb-0">
+                {/* Photo Area with White Border */}
+                <div className="bg-white p-2 shadow-sm border border-stone-100 relative">
+                    <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-200">
+                        <img 
+                            src={site.imageUrl} 
+                            alt={site.name} 
+                            className="w-full h-full object-cover sepia-[0.1] contrast-[1.05]"
+                        />
+                        {/* Inner shadow/vignette for photo realism */}
+                        <div className="absolute inset-0 shadow-[inset_0_0_20px_rgba(0,0,0,0.1)] pointer-events-none"></div>
+                        
+                        {/* "Photo Taken" Location Tag */}
+                        <div className="absolute bottom-3 left-3 flex items-center gap-1 text-[10px] text-white/90 font-medium tracking-wider bg-black/40 backdrop-blur-[2px] px-2 py-1 rounded-full border border-white/20">
+                            <MapPin size={10} />
+                            CN • {site.province}
+                        </div>
                     </div>
                 </div>
             </div>
 
-            {/* Title Overlay */}
-            <div className="absolute bottom-0 left-0 p-6 text-white w-full">
-                <div className="flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-widest mb-2">
-                    <span className="w-8 h-[1px] bg-amber-400"></span>
-                    探索新发现
-                </div>
-                <h2 className="text-2xl md:text-3xl font-serif font-bold leading-tight drop-shadow-md">
-                    {site.name}
-                </h2>
-            </div>
-        </div>
-
-        {/* Content Section */}
-        <div className="p-6 md:p-8 bg-white relative">
-            {/* Ornamental Corners */}
-            <div className="absolute top-4 left-4 w-4 h-4 border-t-2 border-l-2 border-stone-200"></div>
-            <div className="absolute top-4 right-4 w-4 h-4 border-t-2 border-r-2 border-stone-200"></div>
-            <div className="absolute bottom-4 left-4 w-4 h-4 border-b-2 border-l-2 border-stone-200"></div>
-            <div className="absolute bottom-4 right-4 w-4 h-4 border-b-2 border-r-2 border-stone-200"></div>
-
-            <div className="text-center space-y-4">
-                <p className="text-stone-500 font-serif italic text-lg leading-relaxed">
-                    {site.description}
-                </p>
+            {/* Text Area */}
+            <div className="px-6 py-6 relative">
                 
-                <div className="flex items-center justify-center gap-4 pt-4 border-t border-stone-100">
-                    <div className="flex flex-col items-center text-stone-400">
-                        <span className="text-xs uppercase tracking-wider">Province</span>
-                        <span className="font-serif text-stone-800 font-bold">{site.province}</span>
-                    </div>
-                    <div className="w-px h-8 bg-stone-200"></div>
-                    <div className="flex flex-col items-center text-stone-400">
-                        <span className="text-xs uppercase tracking-wider">Category</span>
-                        <span className="font-serif text-stone-800 font-bold">{site.category}</span>
-                    </div>
-                    <div className="w-px h-8 bg-stone-200"></div>
-                    <div className="flex flex-col items-center text-stone-400">
-                        <span className="text-xs uppercase tracking-wider">Year</span>
-                        <span className="font-serif text-stone-800 font-bold">{site.yearInscribed}</span>
+                {/* 1. The Red Stamp (Animated) */}
+                <div className="absolute top-[-20px] right-6 z-20 stamp-animate pointer-events-none select-none mix-blend-multiply">
+                    <div className="w-24 h-24 border-4 border-double border-red-800/80 rounded-full flex items-center justify-center relative opacity-90 rotate-[-12deg] bg-red-50/10 backdrop-blur-[1px]">
+                        <div className="absolute inset-1 border border-red-800/50 rounded-full"></div>
+                        <div className="text-center">
+                            <div className="text-red-800 font-serif font-bold text-[10px] tracking-[0.2em] uppercase mb-1">China Heritage</div>
+                            <div className="text-red-900 font-serif font-bold text-xl leading-none">打卡<br/>留念</div>
+                            <div className="text-red-800 text-[10px] font-mono mt-1 pt-1 border-t border-red-800/30 w-12 mx-auto">{dateStr}</div>
+                        </div>
                     </div>
                 </div>
 
-                <button 
-                    onClick={onClose}
-                    className="mt-6 w-full py-3 bg-stone-900 text-white rounded-xl font-medium hover:bg-stone-800 transition-all shadow-lg active:scale-95"
-                >
-                    收入囊中
-                </button>
+                {/* 2. The Black Postmark (Faded) */}
+                <div className="absolute top-0 right-[40%] z-10 opacity-40 rotate-12 pointer-events-none mix-blend-multiply">
+                    <div className="w-16 h-16 border border-stone-800 rounded-full flex items-center justify-center">
+                         <div className="text-[8px] text-stone-900 font-mono text-center leading-tight">
+                            POSTAGE<br/>PAID<br/>CN-{site.id}
+                         </div>
+                    </div>
+                    <div className="absolute top-1/2 left-16 w-12 h-[2px] bg-stone-800/80 wave-line"></div>
+                    <div className="absolute top-[40%] left-16 w-12 h-[2px] bg-stone-800/80 wave-line"></div>
+                    <div className="absolute top-[60%] left-16 w-12 h-[2px] bg-stone-800/80 wave-line"></div>
+                </div>
+
+                <div className="space-y-4">
+                    {/* Header Info */}
+                    <div className="pr-20">
+                        <div className="flex items-center gap-2 mb-1">
+                             <span className="px-1.5 py-0.5 bg-stone-800 text-stone-100 text-[9px] font-bold tracking-widest uppercase rounded-sm">
+                                No.{site.id}
+                             </span>
+                             <span className="text-[10px] font-bold text-stone-400 uppercase tracking-widest">
+                                World Heritage
+                             </span>
+                        </div>
+                        <h2 className="text-2xl font-serif font-bold text-stone-900 leading-tight">
+                            {site.name}
+                        </h2>
+                    </div>
+
+                    {/* Divider */}
+                    <div className="w-full h-px bg-stone-200 dashed-line"></div>
+
+                    {/* Quote */}
+                    <div className="relative pl-4">
+                        <Quote size={16} className="absolute left-0 top-0 text-stone-300 transform -scale-x-100" />
+                        <p className="font-serif italic text-stone-600 text-sm leading-relaxed">
+                            {site.description}
+                        </p>
+                    </div>
+
+                    {/* Footer Metadata */}
+                    <div className="pt-4 flex items-end justify-between">
+                         <div className="flex flex-col gap-0.5">
+                             <span className="text-[9px] text-stone-400 uppercase tracking-widest">Inscribed</span>
+                             <span className="font-serif text-stone-800 font-bold">{site.yearInscribed} 年</span>
+                         </div>
+                         <div className="flex flex-col gap-0.5 border-l border-stone-200 pl-4">
+                             <span className="text-[9px] text-stone-400 uppercase tracking-widest">Type</span>
+                             <span className="font-serif text-stone-800 font-bold">{site.category}</span>
+                         </div>
+                         <div className="flex-1"></div>
+                         
+                         {/* Action Button - Styled as part of the card */}
+                         <button 
+                            onClick={onClose}
+                            className="bg-stone-900 hover:bg-red-900 text-white text-xs px-4 py-2 rounded shadow-md transition-colors flex items-center gap-2"
+                        >
+                            <span>收入囊中</span>
+                            <Download size={12} />
+                         </button>
+                    </div>
+                </div>
+            </div>
+
+            {/* Bottom Decorative Bar code strip */}
+            <div className="bg-stone-100 h-3 w-full border-t border-stone-200 flex items-center justify-between px-2 overflow-hidden">
+                <div className="flex gap-0.5 opacity-20">
+                     {[...Array(40)].map((_, i) => (
+                        <div key={i} className="w-[2px] bg-stone-900 h-full" style={{ height: Math.random() > 0.5 ? '100%' : '60%' }}></div>
+                     ))}
+                </div>
+                <span className="text-[8px] font-mono text-stone-400">MEMORY-{site.id.padStart(4, '0')}</span>
             </div>
         </div>
       </div>
